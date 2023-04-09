@@ -7,10 +7,12 @@ using Random = UnityEngine.Random;
 public class PlatformPool : MonoBehaviour
 {
     [SerializeField] private GameObject platformPrefab;
+    [SerializeField] private GameObject playerPrefab;
     
     private List<GameObject> platforms = new List<GameObject>();
 
     private Vector2 _platformPosition;
+    private Vector2 _playerPosition;
 
     [SerializeField] private float distanceBetweenPlatforms;
 
@@ -24,18 +26,39 @@ public class PlatformPool : MonoBehaviour
     {
         if (platforms[platforms.Count - 1].transform.position.y < Camera.main.transform.position.y + ScreenCalculator.Instance.Height)
         {
-            Debug.Log("Platform yerlestir.");
+            PlacePlatform();
         }
     }
 
     void GeneratePlatform()
     {
         _platformPosition = new Vector2(0, 0);
-        for (int i = 0; i < 10; i++)
+        _playerPosition = new Vector2(0.0f, 0.5f);
+
+        GameObject player = Instantiate(playerPrefab, _playerPosition, Quaternion.identity);
+        GameObject ilkPlatform = Instantiate(platformPrefab, _platformPosition, Quaternion.identity);
+        platforms.Add(ilkPlatform);
+        NextPlatformPosition();
+        ilkPlatform.GetComponent<Platform>().IsMovement = false;
+        
+        for (int i = 0; i < 9; i++)
         {
             GameObject platform = Instantiate(platformPrefab, _platformPosition, Quaternion.identity);
             platforms.Add(platform);
             platform.GetComponent<Platform>().IsMovement = true;
+            NextPlatformPosition();
+        }
+    }
+
+    void PlacePlatform()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject temp;
+            temp = platforms[i + 5];
+            platforms[i + 5] = platforms[i];
+            platforms[i] = temp;
+            platforms[i + 5].transform.position = _platformPosition;
             NextPlatformPosition();
         }
     }
