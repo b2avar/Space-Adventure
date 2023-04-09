@@ -5,8 +5,10 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     private PolygonCollider2D _polygonCollider2D;
-    private float randomSpeed;
+    private float _randomSpeed;
     private bool _isMovement = true;
+
+    private float _min, _max;
 
     public bool IsMovement
     {
@@ -18,7 +20,21 @@ public class Platform : MonoBehaviour
     void Start()
     {
         _polygonCollider2D = GetComponent<PolygonCollider2D>();
-        randomSpeed = Random.Range(0.5f, 1.0f);
+        _randomSpeed = Random.Range(0.5f, 1.0f);
+        
+        float objectWidth = _polygonCollider2D.bounds.size.x / 2;
+        
+        if (transform.position.x > 0)
+        {
+            _min = objectWidth;
+            _max = ScreenCalculator.Instance.Width - objectWidth;
+        }
+
+        else
+        {
+            _min = -ScreenCalculator.Instance.Width + objectWidth;
+            _max = -objectWidth;
+        }
     }
 
     // Update is called once per frame
@@ -26,7 +42,7 @@ public class Platform : MonoBehaviour
     {
         if (_isMovement)
         {
-            float pingPongX = Mathf.PingPong(Time.time * randomSpeed, 3.0f);
+            float pingPongX = Mathf.PingPong(Time.time * _randomSpeed, _max - _min) + _min;
             Vector2 pingPong = new Vector2(pingPongX, transform.position.y);
             transform.position = pingPong;
         }
