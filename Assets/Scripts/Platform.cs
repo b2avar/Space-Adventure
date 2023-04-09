@@ -6,7 +6,7 @@ public class Platform : MonoBehaviour
 {
     private PolygonCollider2D _polygonCollider2D;
     private float _randomSpeed;
-    private bool _isMovement = true;
+    private bool _isMovement;
 
     private float _min, _max;
 
