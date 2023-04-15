@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public class PlatformPool : MonoBehaviour
 {
     [SerializeField] private GameObject platformPrefab;
+    [SerializeField] private GameObject deadlyPlatformPrefab;
     [SerializeField] private GameObject playerPrefab;
     
     private List<GameObject> platforms = new List<GameObject>();
@@ -17,47 +18,49 @@ public class PlatformPool : MonoBehaviour
     [SerializeField] private float distanceBetweenPlatforms;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         GeneratePlatform();
     }
 
     private void Update()
     {
-        if (platforms[platforms.Count - 1].transform.position.y < Camera.main.transform.position.y + ScreenCalculator.Instance.Height)
+        if (platforms[^1].transform.position.y < Camera.main.transform.position.y + ScreenCalculator.Instance.Height)
         {
             PlacePlatform();
         }
     }
 
-    void GeneratePlatform()
+    private void GeneratePlatform()
     {
         _platformPosition = new Vector2(0, 0);
         _playerPosition = new Vector2(0.0f, 0.5f);
 
-        GameObject player = Instantiate(playerPrefab, _playerPosition, Quaternion.identity);
-        GameObject ilkPlatform = Instantiate(platformPrefab, _platformPosition, Quaternion.identity);
+        var player = Instantiate(playerPrefab, _playerPosition, Quaternion.identity);
+        var ilkPlatform = Instantiate(platformPrefab, _platformPosition, Quaternion.identity);
         platforms.Add(ilkPlatform);
         NextPlatformPosition();
-        ilkPlatform.GetComponent<Platform>().IsMovement = false;
+        ilkPlatform.GetComponent<Platform>().IsMovement = true;
         
-        for (int i = 0; i < 9; i++)
+        for (var i = 0; i < 8; i++)
         {
-            GameObject platform = Instantiate(platformPrefab, _platformPosition, Quaternion.identity);
+            var platform = Instantiate(platformPrefab, _platformPosition, Quaternion.identity);
             platforms.Add(platform);
             platform.GetComponent<Platform>().IsMovement = true;
             NextPlatformPosition();
         }
+
+        var deadlyPlatform = Instantiate(deadlyPlatformPrefab, _platformPosition, Quaternion.identity);
+        deadlyPlatform.GetComponent<DeadlyPlatform>().IsMovement = true;
+        platforms.Add(deadlyPlatform);
+        NextPlatformPosition();
     }
 
-    void PlacePlatform()
+    private void PlacePlatform()
     {
-        for (int i = 0; i < 5; i++)
+        for (var i = 0; i < 5; i++)
         {
-            GameObject temp;
-            temp = platforms[i + 5];
-            platforms[i + 5] = platforms[i];
-            platforms[i] = temp;
+            (platforms[i + 5], platforms[i]) = (platforms[i], platforms[i + 5]);
             platforms[i + 5].transform.position = _platformPosition;
             NextPlatformPosition();
         }
@@ -66,7 +69,7 @@ public class PlatformPool : MonoBehaviour
     private void NextPlatformPosition()
     {
         _platformPosition.y += distanceBetweenPlatforms;
-        float random = Random.Range(0.0f, 1.0f);
+        var random = Random.Range(0.0f, 1.0f);
 
         if (random < 0.5f)
         {

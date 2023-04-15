@@ -1,23 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class Platform : MonoBehaviour
+public class DeadlyPlatform : MonoBehaviour
 {
-    private PolygonCollider2D _polygonCollider2D;
+    private BoxCollider2D _boxCollider2D;
     private float _randomSpeed;
 
     private float _min, _max;
 
     public bool IsMovement { get; set; }
 
-    // Start is called before the first frame update
     private void Start()
     {
-        _polygonCollider2D = GetComponent<PolygonCollider2D>();
+        _boxCollider2D = GetComponent<BoxCollider2D>();
         _randomSpeed = Random.Range(0.5f, 1.0f);
         
-        var objectWidth = _polygonCollider2D.bounds.size.x / 2;
+        var objectWidth = _boxCollider2D.bounds.size.x / 2;
         
         if (transform.position.x > 0)
         {
@@ -31,7 +32,7 @@ public class Platform : MonoBehaviour
             _max = -objectWidth;
         }
     }
-    
+
     private void Update()
     {
         if (!IsMovement) return;

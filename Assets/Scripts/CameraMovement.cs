@@ -11,20 +11,19 @@ public class CameraMovement : MonoBehaviour
     private bool _movement;
     
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         speed = 0.5f;
         acceleration = 0.5f;
         maximumSpeed = 2.0f;
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void Update()
     {
         MoveCamera();
     }
 
-    void MoveCamera()
+    private void MoveCamera()
     {
         transform.position += transform.up * speed * Time.deltaTime;
         speed += acceleration * Time.deltaTime;

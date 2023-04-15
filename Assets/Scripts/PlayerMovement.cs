@@ -12,44 +12,65 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float acceleration;
     [SerializeField] private float deceleration;
+    [SerializeField] private float jumpForce;
     
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void Update()
     {
         KeyboardController();
     }
 
-    void KeyboardController()
+    private void KeyboardController()
     {
-        float movementInput = Input.GetAxisRaw("Horizontal");
+        var movementInput = Input.GetAxisRaw("Horizontal");
         Vector2 scale = transform.localScale;
-        if (movementInput > 0)
+        switch (movementInput)
         {
-            _velocity.x = Mathf.MoveTowards(_velocity.x, movementInput * speed, acceleration * Time.deltaTime);
-            _animator.SetBool("Walk", true);
-            scale.x = 0.3f;
-        }
-        
-        else if (movementInput < 0)
-        {
-            _velocity.x = Mathf.MoveTowards(_velocity.x, movementInput * speed, acceleration * Time.deltaTime);
-            _animator.SetBool("Walk", true);
-            scale.x = -0.3f;
-        }
-
-        else
-        {
-            _velocity.x = Mathf.MoveTowards(_velocity.x, 0, deceleration * Time.deltaTime);
-            _animator.SetBool("Walk", false);
+            case > 0:
+                _velocity.x = Mathf.MoveTowards(_velocity.x, movementInput * speed, acceleration * Time.deltaTime);
+                _animator.SetBool("Walk", true);
+                scale.x = 0.3f;
+                break;
+            case < 0:
+                _velocity.x = Mathf.MoveTowards(_velocity.x, movementInput * speed, acceleration * Time.deltaTime);
+                _animator.SetBool("Walk", true);
+                scale.x = -0.3f;
+                break;
+            default:
+                _velocity.x = Mathf.MoveTowards(_velocity.x, 0, deceleration * Time.deltaTime);
+                _animator.SetBool("Walk", false);
+                break;
         }
         transform.localScale = scale;
         transform.Translate(_velocity * Time.deltaTime);
+
+        if (Input.GetKeyDown("space"))
+        {
+            StartJump();
+        }
+
+        if (Input.GetKeyDown("space"))
+        {
+            StopJump();
+        }
     }
+
+    private void StartJump()
+    {
+        _rigidbody2D.AddForce(new Vector2(0,jumpForce),ForceMode2D.Impulse);
+        _animator.SetBool("Jump",true);
+    }
+
+    private void StopJump()
+    {
+        _animator.SetBool("Jump",false);
+    }
+    
+    
 }
