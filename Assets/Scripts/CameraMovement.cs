@@ -14,7 +14,7 @@ public class CameraMovement : MonoBehaviour
     private void Start()
     {
         speed = 0.5f;
-        acceleration = 0.5f;
+        acceleration = 0.05f;
         maximumSpeed = 2.0f;
     }
     

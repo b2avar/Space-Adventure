@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Platform : MonoBehaviour
 {
@@ -38,5 +40,13 @@ public class Platform : MonoBehaviour
         var pingPongX = Mathf.PingPong(Time.time * _randomSpeed, _max - _min) + _min;
         var pingPong = new Vector2(pingPongX, transform.position.y);
         transform.position = pingPong;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "PlayerFeets")
+        {
+            GameObject.FindGameObjectWithTag("Player").transform.parent = transform;
+        }
     }
 }
