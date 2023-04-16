@@ -15,17 +15,27 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private int jumpLimit;
     [SerializeField] private int jumpCount;
+    private Joystick _joystick;
+    private JoystickButton _joystickButton;
+    private bool isJumping;
     
     // Start is called before the first frame update
     private void Start()
     {
+        _joystickButton = FindObjectOfType<JoystickButton>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _joystick = FindObjectOfType<Joystick>();
     }
     
     private void Update()
     {
-        KeyboardController();
+// #if UNITY_EDITOR
+//         KeyboardController();
+// #else
+//         JoystickController();
+// #endif
+    JoystickController();
     }
 
     private void KeyboardController()
@@ -59,6 +69,43 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown("space"))
         {
+            StopJump();
+        }
+    }
+    
+    void JoystickController()
+    {
+        float movementInput = _joystick.Horizontal;
+        Vector2 scale = transform.localScale;
+        switch (movementInput)
+        {
+            case > 0:
+                _velocity.x = Mathf.MoveTowards(_velocity.x, movementInput * speed, acceleration * Time.deltaTime);
+                _animator.SetBool("Walk", true);
+                scale.x = 0.3f;
+                break;
+            case < 0:
+                _velocity.x = Mathf.MoveTowards(_velocity.x, movementInput * speed, acceleration * Time.deltaTime);
+                _animator.SetBool("Walk", true);
+                scale.x = -0.3f;
+                break;
+            default:
+                _velocity.x = Mathf.MoveTowards(_velocity.x, 0, deceleration * Time.deltaTime);
+                _animator.SetBool("Walk", false);
+                break;
+        }
+        transform.localScale = scale;
+        transform.Translate(_velocity * Time.deltaTime);
+        
+        if (_joystickButton.isKeyPressed == true && isJumping == false)
+        {
+            isJumping = true;
+            StartJump();
+        }
+
+        if (_joystickButton.isKeyPressed == false && isJumping == true)
+        {
+            isJumping = false;
             StopJump();
         }
     }
