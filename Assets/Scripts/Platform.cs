@@ -44,9 +44,8 @@ public class Platform : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "PlayerFeets")
-        {
+        if (other.gameObject.tag == "PlayerFeet")
             GameObject.FindGameObjectWithTag("Player").transform.parent = transform;
-        }
+            GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerMovement>().ResetJump();
     }
 }

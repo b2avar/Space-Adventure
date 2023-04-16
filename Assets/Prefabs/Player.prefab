@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 1007371916532744202}
   m_Layer: 0
   m_Name: PlayerFeets
-  m_TagString: PlayerFeets
+  m_TagString: PlayerFeet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 6859365967490923946}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -259,7 +259,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614a247a680d848e0922e4fd1d0709e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 3
   acceleration: 10
   deceleration: 20
   jumpForce: 100
+  jumpLimit: 3
+  jumpCount: 0

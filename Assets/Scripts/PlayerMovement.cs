@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float acceleration;
     [SerializeField] private float deceleration;
     [SerializeField] private float jumpForce;
+    [SerializeField] private int jumpLimit;
+    [SerializeField] private int jumpCount;
     
     // Start is called before the first frame update
     private void Start()
@@ -63,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void StartJump()
     {
+        if(!(jumpCount < jumpLimit)) return;
         _rigidbody2D.AddForce(new Vector2(0,jumpForce),ForceMode2D.Impulse);
         _animator.SetBool("Jump",true);
     }
@@ -70,7 +73,14 @@ public class PlayerMovement : MonoBehaviour
     private void StopJump()
     {
         _animator.SetBool("Jump",false);
+        jumpCount++;
     }
     
-    
+    public void ResetJump()
+    {
+        jumpCount = 0;
+        Debug.Log("ziplama sifirlandi.");
+    }
+
+
 }
