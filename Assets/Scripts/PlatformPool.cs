@@ -16,8 +16,7 @@ public class PlatformPool : MonoBehaviour
     private Vector2 _playerPosition;
 
     [SerializeField] private float distanceBetweenPlatforms;
-
-    // Start is called before the first frame update
+    
     private void Start()
     {
         GeneratePlatform();
