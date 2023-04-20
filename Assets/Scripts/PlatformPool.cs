@@ -33,13 +33,13 @@ public class PlatformPool : MonoBehaviour
     private void GeneratePlatform()
     {
         _platformPosition = new Vector2(0, 0);
-        _playerPosition = new Vector2(0.0f, 0.5f);
+        _playerPosition = new Vector2(-0.5f, 0.5f);
 
         var player = Instantiate(playerPrefab, _playerPosition, Quaternion.identity);
         var ilkPlatform = Instantiate(platformPrefab, _platformPosition, Quaternion.identity);
         platforms.Add(ilkPlatform);
         NextPlatformPosition();
-        ilkPlatform.GetComponent<Platform>().IsMovement = false;
+        ilkPlatform.GetComponent<Platform>().IsMovement = true;
         
         for (var i = 0; i < 8; i++)
         {
