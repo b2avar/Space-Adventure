@@ -10,6 +10,7 @@ public class TokenTrigger : MonoBehaviour
         if (other.gameObject.tag == "PlayerFeet")
         {
             GetComponentInParent<Token>().TokenClose();
+            FindObjectOfType<Score>().GetToken();
         }
     }
 }

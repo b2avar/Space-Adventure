@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - PlayerFeet
+  - Platform
+  - DeadlyPlatfom
   layers:
   - Default
   - TransparentFX
@@ -44,6 +46,9 @@ TagManager:
     locked: 0
   - name: Platform
     uniqueID: 2585854745
+    locked: 0
+  - name: Token
+    uniqueID: 1364008259
     locked: 0
   - name: Player
     uniqueID: 2567809653

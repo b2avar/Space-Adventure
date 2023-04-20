@@ -46,6 +46,10 @@ public class PlatformPool : MonoBehaviour
             var platform = Instantiate(platformPrefab, _platformPosition, Quaternion.identity);
             platforms.Add(platform);
             platform.GetComponent<Platform>().IsMovement = true;
+            if (i % 2 == 0)
+            {
+                platform.GetComponent<Token>().TokenOpen();
+            }
             NextPlatformPosition();
         }
 
@@ -61,6 +65,15 @@ public class PlatformPool : MonoBehaviour
         {
             (platforms[i + 5], platforms[i]) = (platforms[i], platforms[i + 5]);
             platforms[i + 5].transform.position = _platformPosition;
+            if (platforms[i + 5].gameObject.tag == "Platform")
+            {
+                platforms[i + 5].GetComponent<Token>().TokenClose();
+                float randomToken = Random.Range(0.0f, 1.0f);
+                if (randomToken > 0.5f)
+                {
+                    platforms[i + 5].GetComponent<Token>().TokenOpen();
+                }
+            }
             NextPlatformPosition();
         }
     }
