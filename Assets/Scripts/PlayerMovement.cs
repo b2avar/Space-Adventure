@@ -30,12 +30,11 @@ public class PlayerMovement : MonoBehaviour
     
     private void Update()
     {
-// #if UNITY_EDITOR
-//         KeyboardController();
-// #else
-//         JoystickController();
-// #endif
-    JoystickController();
+#if UNITY_EDITOR
+        KeyboardController();
+#else
+        JoystickController();
+#endif
     }
 
     private void KeyboardController()

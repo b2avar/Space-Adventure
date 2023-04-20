@@ -39,7 +39,7 @@ public class PlatformPool : MonoBehaviour
         var ilkPlatform = Instantiate(platformPrefab, _platformPosition, Quaternion.identity);
         platforms.Add(ilkPlatform);
         NextPlatformPosition();
-        ilkPlatform.GetComponent<Platform>().IsMovement = true;
+        ilkPlatform.GetComponent<Platform>().IsMovement = false;
         
         for (var i = 0; i < 8; i++)
         {
