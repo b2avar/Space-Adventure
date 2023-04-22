@@ -240,10 +240,10 @@ TextureImporter:
       name: UI_Elements_4
       rect:
         serializedVersion: 2
-        x: 2179
-        y: 1810
-        width: 212
-        height: 85
+        x: 2192
+        y: 1819
+        width: 193
+        height: 66
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -282,10 +282,10 @@ TextureImporter:
       name: UI_Elements_6
       rect:
         serializedVersion: 2
-        x: 3210
-        y: 1815
-        width: 206
-        height: 73
+        x: 3216
+        y: 1818
+        width: 194
+        height: 68
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

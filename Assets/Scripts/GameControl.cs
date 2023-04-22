@@ -2,23 +2,50 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject[] uiObjects;
+    [SerializeField] private GameObject gameOverPanel;
+
+
+    private void Start()
     {
-        
+        gameOverPanel.SetActive(false);
+        UIObjectOpen();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GameOver()
     {
-        
+        gameOverPanel.SetActive(true);
+        FindObjectOfType<Score>().GameOver();
+        UIObjectClose();
     }
     
-    public void EndGame()
+    public void ReturnToMainMenu()
     {
-        Debug.Log("Game Over");
+        SceneManager.LoadScene("Menu");
+    }
+    
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Game");
+    }
+    
+    void UIObjectOpen()
+    {
+        foreach (var uiObj in uiObjects)
+        {
+            uiObj.SetActive(true);
+        }
+    }
+    
+    void UIObjectClose()
+    {
+        foreach (var uiObj in uiObjects)
+        {
+            uiObj.SetActive(false);
+        }
     }
 }

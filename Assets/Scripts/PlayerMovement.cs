@@ -114,25 +114,28 @@ public class PlayerMovement : MonoBehaviour
         if(!(jumpCount < jumpLimit)) return;
         _rigidbody2D.AddForce(new Vector2(0,jumpForce),ForceMode2D.Impulse);
         _animator.SetBool("Jump",true);
+        FindObjectOfType<SlideControl>().Slider(jumpLimit,jumpCount);
     }
 
     private void StopJump()
     {
         _animator.SetBool("Jump",false);
         jumpCount++;
+        FindObjectOfType<SlideControl>().Slider(jumpLimit,jumpCount);
     }
     
     public void ResetJump()
     {
         jumpCount = 0;
         Debug.Log("ziplama sifirlandi.");
+        FindObjectOfType<SlideControl>().Slider(jumpLimit,jumpCount);
     }
     
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "DeathPoint")
         {
-            FindObjectOfType<GameControl>().EndGame();
+            FindObjectOfType<GameControl>().GameOver();
         }
     }
 
