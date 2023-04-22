@@ -22,6 +22,7 @@ public class ScreenCalculator : MonoBehaviour
         }
 
         Height = Camera.main.orthographicSize;
+        //Debug.Log(Camera.main.aspect);
         Width = Height * Camera.main.aspect;
     }
     

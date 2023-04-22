@@ -127,6 +127,14 @@ public class PlayerMovement : MonoBehaviour
         jumpCount = 0;
         Debug.Log("ziplama sifirlandi.");
     }
+    
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "DeathPoint")
+        {
+            FindObjectOfType<GameControl>().EndGame();
+        }
+    }
 
 
 }
