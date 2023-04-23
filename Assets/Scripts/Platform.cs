@@ -17,7 +17,20 @@ public class Platform : MonoBehaviour
     private void Start()
     {
         _polygonCollider2D = GetComponent<PolygonCollider2D>();
-        _randomSpeed = Random.Range(0.5f, 1.0f);
+        if (Options.GetEasyValue() == 1)
+        {
+            _randomSpeed = Random.Range(0.3f, 0.8f);
+        }
+
+        if (Options.GetMediumValue() == 1)
+        {
+            _randomSpeed = Random.Range(0.5f, 1.0f);
+        }
+        
+        if (Options.GetHardValue() == 1)
+        {
+            _randomSpeed = Random.Range(0.8f, 1.5f);
+        }
         
         var objectWidth = _polygonCollider2D.bounds.size.x / 2;
         

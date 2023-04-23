@@ -127,7 +127,6 @@ public class PlayerMovement : MonoBehaviour
     public void ResetJump()
     {
         jumpCount = 0;
-        Debug.Log("ziplama sifirlandi.");
         FindObjectOfType<SlideControl>().Slider(jumpLimit,jumpCount);
     }
     

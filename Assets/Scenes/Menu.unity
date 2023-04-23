@@ -978,8 +978,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicIcons:
-  - {fileID: 576023076, guid: 2cddca85fac9440d0a704da99cf78200, type: 3}
   - {fileID: 1198454526, guid: 2cddca85fac9440d0a704da99cf78200, type: 3}
+  - {fileID: 576023076, guid: 2cddca85fac9440d0a704da99cf78200, type: 3}
   musicButton: {fileID: 1957466163}
 --- !u!4 &1281559950
 Transform:
