@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -7,7 +8,16 @@ public class MenuControl : MonoBehaviour
     [SerializeField] private Sprite[] musicIcons;
     [SerializeField] private Button musicButton;
     private bool isMusicOn;
-    
+
+
+    private void Start()
+    {
+        if (Options.HasKey() == false)
+        {
+            Options.SetEasyValue(1);
+        }
+    }
+
     public void StartGame()
     {
         SceneManager.LoadScene("Game");

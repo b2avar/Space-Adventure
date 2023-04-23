@@ -16,37 +16,52 @@ public class SettingsControl : MonoBehaviour
 
    private void Start()
    {
-      easyButton.onClick.AddListener((() =>
+      if (Options.GetEasyValue() == 1)
       {
-         OptionSelected(easyButton.GetComponentInChildren<Text>().text);
-      }));
+         easyButton.interactable = false;
+         mediumButton.interactable = true;
+         hardButton.interactable = true;
+      }
       
-      mediumButton.onClick.AddListener((() =>
+      if (Options.GetMediumValue() == 1)
       {
-         OptionSelected(mediumButton.GetComponentInChildren<Text>().text);
-      }));
+         mediumButton.interactable = false;
+         easyButton.interactable = true;
+         hardButton.interactable = true;
+      }
       
-      hardButton.onClick.AddListener((() =>
+      if (Options.GetHardValue() == 1)
       {
-         OptionSelected(hardButton.GetComponentInChildren<Text>().text);
-      }));
+         hardButton.interactable = false;
+         easyButton.interactable = true;
+         mediumButton.interactable = true;
+      }
    }
 
    public void OptionSelected(string _level)
    {
       switch (_level)
       {
-         case "EASY":
+         case "easy":
+            Options.SetEasyValue(1);
+            Options.SetMediumValue(0);
+            Options.SetHardValue(0);
             easyButton.interactable = false;
             mediumButton.interactable = true;
             hardButton.interactable = true;
             break;
-         case "MEDIUM":
+         case "medium":
+            Options.SetMediumValue(1);
+            Options.SetEasyValue(0);
+            Options.SetHardValue(0);
             mediumButton.interactable = false;
             easyButton.interactable = true;
             hardButton.interactable = true;
             break;
-         case "HARD":
+         case "hard":
+            Options.SetHardValue(1);
+            Options.SetEasyValue(0);
+            Options.SetMediumValue(0);
             hardButton.interactable = false;
             easyButton.interactable = true;
             mediumButton.interactable = true;
