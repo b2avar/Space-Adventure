@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -7,15 +8,21 @@ public class MenuControl : MonoBehaviour
 {
     [SerializeField] private Sprite[] musicIcons;
     [SerializeField] private Button musicButton;
-    private bool isMusicOn;
-
 
     private void Start()
     {
-        if (Options.HasKey() == false)
+        if (Options.SettingsHasKey() == false)
         {
             Options.SetEasyValue(1);
         }
+        
+        if (Options.MusicHaskey() == false)
+        {
+            Options.SetMusicOpenValue(1);
+        }
+
+        
+        CheckMusicSettings();
     }
 
     public void StartGame()
@@ -35,17 +42,30 @@ public class MenuControl : MonoBehaviour
     
     public void Music()
     {
-        if (isMusicOn)
+        if (Options.GetMusicOpenValue() == 1)
         {
-            isMusicOn = false;
+            Options.SetMusicOpenValue(0);
             musicButton.image.sprite = musicIcons[0];
         }
         
         else
         {
-            isMusicOn = true;
+            Options.SetMusicOpenValue(1);
             musicButton.image.sprite = musicIcons[1];
         }
 
+    }
+    
+    void CheckMusicSettings()
+    {
+        if (Options.GetMusicOpenValue() == 1)
+        {
+            musicButton.image.sprite = musicIcons[1];
+        }
+
+        else
+        {
+            musicButton.image.sprite = musicIcons[0];
+        }
     }
 }
