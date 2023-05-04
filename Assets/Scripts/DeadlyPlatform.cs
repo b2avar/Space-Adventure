@@ -40,4 +40,12 @@ public class DeadlyPlatform : MonoBehaviour
         var pingPong = new Vector2(pingPongX, transform.position.y);
         transform.position = pingPong;
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "PlayerFeet")
+        {
+            FindObjectOfType<GameControl>().GameOver();
+        }
+    }
 }

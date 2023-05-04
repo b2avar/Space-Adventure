@@ -263,7 +263,7 @@ MonoBehaviour:
   speed: 3
   acceleration: 10
   deceleration: 20
-  jumpForce: 100
+  jumpForce: 120
   jumpLimit: 3
   jumpCount: 0
 --- !u!114 &6452223103301135352

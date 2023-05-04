@@ -13,6 +13,7 @@ public class CameraMovement : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        _movement = true;
         if (Options.GetEasyValue() == 1)
         {
             speed = 0.3f;
@@ -39,7 +40,10 @@ public class CameraMovement : MonoBehaviour
     
     private void Update()
     {
-        MoveCamera();
+        if (_movement)
+        {
+            MoveCamera();
+        }
     }
 
     private void MoveCamera()
@@ -50,5 +54,10 @@ public class CameraMovement : MonoBehaviour
         {
             speed = maximumSpeed;
         }
+    }
+    
+    public void GameOver()
+    {
+        _movement = false;
     }
 }

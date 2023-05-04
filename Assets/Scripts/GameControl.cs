@@ -20,6 +20,8 @@ public class GameControl : MonoBehaviour
     {
         gameOverPanel.SetActive(true);
         FindObjectOfType<Score>().GameOver();
+        FindObjectOfType<PlayerMovement>().GameOver();
+        FindObjectOfType<CameraMovement>().GameOver();
         UIObjectClose();
     }
     
