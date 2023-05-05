@@ -9,6 +9,11 @@ public class MenuControl : MonoBehaviour
     [SerializeField] private Sprite[] musicIcons;
     [SerializeField] private Button musicButton;
 
+    private void Awake()
+    {
+        CheckMusicSettings();
+    }
+
     private void Start()
     {
         if (Options.SettingsHasKey() == false)
@@ -20,9 +25,7 @@ public class MenuControl : MonoBehaviour
         {
             Options.SetMusicOpenValue(1);
         }
-
         
-        CheckMusicSettings();
     }
 
     public void StartGame()
@@ -45,12 +48,14 @@ public class MenuControl : MonoBehaviour
         if (Options.GetMusicOpenValue() == 1)
         {
             Options.SetMusicOpenValue(0);
+            MusicControl.Instance.PlayMusic(false);
             musicButton.image.sprite = musicIcons[0];
         }
         
         else
         {
             Options.SetMusicOpenValue(1);
+            MusicControl.Instance.PlayMusic(true);
             musicButton.image.sprite = musicIcons[1];
         }
 
@@ -61,11 +66,13 @@ public class MenuControl : MonoBehaviour
         if (Options.GetMusicOpenValue() == 1)
         {
             musicButton.image.sprite = musicIcons[1];
+            MusicControl.Instance.PlayMusic(true);
         }
 
         else
         {
             musicButton.image.sprite = musicIcons[0];
+            MusicControl.Instance.PlayMusic(false);
         }
     }
 }

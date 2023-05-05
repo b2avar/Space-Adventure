@@ -130,7 +130,7 @@ public static class Options
 
     public static bool SettingsHasKey()
     {
-        if (PlayerPrefs.HasKey(Options.easy))
+        if (PlayerPrefs.HasKey(Options.easy) || PlayerPrefs.HasKey(Options.medium)|| PlayerPrefs.HasKey(Options.hard))
         {
             return true;
         }
