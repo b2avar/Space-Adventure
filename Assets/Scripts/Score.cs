@@ -37,6 +37,7 @@ public class Score : MonoBehaviour
     
     public void GetToken()
     {
+        FindObjectOfType<SoundControl>().TokenSound();
         token++;
         tokenText.text = " X " + token;
     }

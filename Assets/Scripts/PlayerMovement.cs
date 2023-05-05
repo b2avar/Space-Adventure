@@ -112,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
     private void StartJump()
     {
         if(!(jumpCount < jumpLimit)) return;
+        FindObjectOfType<SoundControl>().JumpSound();
         _rigidbody2D.AddForce(new Vector2(0,jumpForce),ForceMode2D.Impulse);
         _animator.SetBool("Jump",true);
         FindObjectOfType<SlideControl>().Slider(jumpLimit,jumpCount);

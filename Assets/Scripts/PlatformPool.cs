@@ -82,6 +82,12 @@ public class PlatformPool : MonoBehaviour
     private void NextPlatformPosition()
     {
         _platformPosition.y += distanceBetweenPlatforms;
+        OrderedPosition();
+    }
+    
+    private void MixedPosition()
+    {
+        _platformPosition.y += distanceBetweenPlatforms;
         var random = Random.Range(0.0f, 1.0f);
 
         if (random < 0.5f)
@@ -92,6 +98,21 @@ public class PlatformPool : MonoBehaviour
         {
             _platformPosition.x = -ScreenCalculator.Instance.Width / 2;
 
+        }
+    }
+
+    private bool direction;
+    private void OrderedPosition()
+    {
+        if (direction)
+        {
+            _platformPosition.x = ScreenCalculator.Instance.Width / 2;
+            direction = false;
+        }
+        else
+        {
+            _platformPosition.x = -ScreenCalculator.Instance.Width / 2;
+            direction = true;
         }
     }
 }
